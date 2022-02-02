@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sol.h"
+#include "function.h"
 
 int main()
 {
