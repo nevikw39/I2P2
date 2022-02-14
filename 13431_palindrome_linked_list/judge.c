@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef putchar_unlocked
+#define putchar putchar_unlocked
+#endif
+
 int main()
 {
     int n;
@@ -16,7 +20,7 @@ int main()
             else
                 cur->next = NULL;
         }
-        putchar_unlocked(is_palindrome(head) ? 'T' : 'F');
+        putchar(is_palindrome(head) ? 'T' : 'F');
         while (head)
         {
             node *tmp = head;
@@ -24,6 +28,6 @@ int main()
             free(tmp);
         }
     }
-    putchar_unlocked('\n');
+    putchar('\n');
     return 0;
 }
