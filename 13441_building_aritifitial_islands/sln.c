@@ -26,7 +26,7 @@ typedef struct _edge // the linked list node of edges of a vertex
     int v, w;
     struct _edge *next;
 } edge;
-edge *head[N], *tail[N];
+edge *head[N];
 
 void update(int *ptr1, int *ptr2, int x) // update the max and second max value
 {
@@ -42,8 +42,8 @@ void update(int *ptr1, int *ptr2, int x) // update the max and second max value
 int *dfs(int u, int p)
 {
     int *arr = malloc(sizeof(int) << 2); // the state of the current root
-    arr[0] = arr[2] = 0;                 // the longest path through the root and in the subtree
-    arr[1] = arr[3] = INT_MIN;           // the second longest path of through the root and in the subtree
+    arr[0] = arr[2] = 0;                 // the diameter of current tree; the longest distance starting from root
+    arr[1] = arr[3] = INT_MIN;           // the 2nd longest distance of current tree; the 2nd longest distance starting from root
     for (edge *ptr = head[u]; ptr; ptr = ptr->next)
     {
         if (ptr->v == p)
@@ -61,26 +61,25 @@ int *dfs(int u, int p)
     return arr;
 }
 
+edge *new_adge(int v, int w, edge *next)
+{
+    edge *y = malloc(sizeof(edge));
+    *y = (edge){.v = v, .w = w, .next = next};
+    return y;
+}
+
 int main()
 {
     int n;
     scanf("%d", &n);
     for (int i = 0; i < n; i++)
-        tail[i] = head[i] = NULL;
+        head[i] = NULL;
     for (int i = 1; i < n; i++)
     {
         int u, v, w;
         scanf("%d%d%d", &u, &v, &w);
-        if (head[u] && tail[u])
-            tail[u] = tail[u]->next = malloc(sizeof(edge));
-        else
-            head[u] = tail[u] = malloc(sizeof(edge));
-        if (head[v] && tail[v])
-            tail[v] = tail[v]->next = malloc(sizeof(edge));
-        else
-            head[v] = tail[v] = malloc(sizeof(edge));
-        *tail[u] = (edge){.v = v, .w = w, .next = NULL};
-        *tail[v] = (edge){.v = u, .w = w, .next = NULL};
+        head[u] = new_adge(v, w, head[u]);
+        head[v] = new_adge(u, w, head[v]);
     }
     printf("%d\n", dfs(0, -1)[1]);
     return 0;

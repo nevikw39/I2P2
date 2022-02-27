@@ -26,7 +26,7 @@ typedef struct _edge // the linked list node of edges of a vertex
     int v;
     struct _edge *next;
 } edge;
-edge *head[N], *tail[N];
+edge *head[N];
 
 void update(int *ptr, int x) // update the max value
 {
@@ -60,6 +60,13 @@ void free_list(edge *ptr)
     free(ptr);
 }
 
+edge *new_adge(int v, edge *next)
+{
+    edge *y = malloc(sizeof(edge));
+    *y = (edge){.v = v, .next = next};
+    return y;
+}
+
 int main()
 {
     int t;
@@ -69,23 +76,15 @@ int main()
         int n;
         scanf("%d", &n);
         for (int i = 0; i < n; i++)
-            tail[i] = head[i] = NULL;
+            head[i] = NULL;
         for (int i = 1; i < n; i++)
         {
             int u, v;
             scanf("%d%d", &u, &v);
             --u;
             --v;
-            if (head[u] && tail[u])
-                tail[u] = tail[u]->next = malloc(sizeof(edge));
-            else
-                head[u] = tail[u] = malloc(sizeof(edge));
-            if (head[v] && tail[v])
-                tail[v] = tail[v]->next = malloc(sizeof(edge));
-            else
-                head[v] = tail[v] = malloc(sizeof(edge));
-            *tail[u] = (edge){.v = v, .next = NULL};
-            *tail[v] = (edge){.v = u, .next = NULL};
+            head[u] = new_adge(v, head[u]);
+            head[v] = new_adge(u, head[v]);
         }
         printf("%d\n", dfs(0, -1)[0]);
         for (int i = 0; i < n; i++)
