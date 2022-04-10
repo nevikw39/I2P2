@@ -62,7 +62,7 @@ polynomial polynomial::operator+(const polynomial &x) const
     // ...
 }
 
-polynomial &&polynomial::operator-(const polynomial &x) const
+polynomial polynomial::operator-(const polynomial &x) const
 {
     // ...
 }
