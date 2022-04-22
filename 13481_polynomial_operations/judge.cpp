@@ -1,11 +1,8 @@
 #include "function.h"
-#include <bits/extc++.h>
-#pragma GCC optimize("Ofast,unroll-loops,no-stack-protector,fast-math")
-#pragma GCC target("tune=native")
 #pragma message("GL; HF!")
-using namespace std;
-using namespace __gnu_cxx;
-using namespace __gnu_pbds;
+#if __cplusplus < 201103L
+#define nullptr NULL
+#endif
 
 int main()
 {

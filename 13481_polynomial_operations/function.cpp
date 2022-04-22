@@ -1,7 +1,7 @@
 #include "function.h"
 #include <algorithm>
 
-void polynomial::set_coefficients(const vector<int> &v) { copy(v.cbegin(), v.cend(), coefficients.begin()); }
+void polynomial::set_coefficients(int *coef) { copy(coef, coef + N, coefficients); }
 
 ostream &operator<<(ostream &os, const polynomial &p)
 {
@@ -48,6 +48,6 @@ polynomial polynomial::operator+(const polynomial &x) const
 polynomial polynomial::operator-(const polynomial &x) const
 {
     auto p = x;
-    transform(p.coefficients.cbegin(), p.coefficients.cend(), p.coefficients.begin(), negate<>());
+    transform(p.coefficients, p.coefficients + N, p.coefficients, negate<int>());
     return move(operator+(p));
 }
