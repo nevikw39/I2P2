@@ -1,9 +1,7 @@
 #include "function.h"
-#include <bits/extc++.h>
-#pragma GCC optimize("Ofast,unroll-loops,no-stack-protector,fast-math")
-#pragma GCC target("tune=native")
+#include <iostream>
 #pragma message("GL; HF!")
-using namespace std;
+using std::cin, std::cout;
 
 int main()
 {
